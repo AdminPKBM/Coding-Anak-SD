@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Coding untuk Anak SD</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+
+        .stages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stage-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .stage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+        }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stage-emoji {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .stage-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        .stage-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 5px 0 0 0;
+        }
+
+        .stage-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .activities-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .activities-list li {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4ecdc4;
+            font-size: 0.9rem;
+        }
+
+        .start-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .start-button:hover {
+            background: linear-gradient(45deg, #ee5a52, #ff6b6b);
+            transform: scale(1.05);
+        }
+
+        .demo-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .demo-header h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 60px);
+            gap: 5px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .grid-cell {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .grid-cell.robot {
+            background: #4ecdc4;
+            border-color: #45b7d1;
+        }
+
+        .grid-cell.target {
+            background: #ff6b6b;
+            border-color: #ee5a52;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: #45b7d1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+
+        .control-btn:hover {
+            background: #3a9bc1;
+            transform: scale(1.05);
+        }
+
+        .control-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4ecdc4, #45b7d1);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .reset-btn {
+            background: #96ceb4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background: #85c1a5;
+            transform: scale(1.05);
+        }
+
+        .level-info {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .level-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .level-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .difficulty-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            background: #e9ecef;
+        }
+
+        .level-description {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .stars-display {
+            font-size: 1.5rem;
+        }
+
+        .level-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #5a6268;
+            transform: scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .achievements {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .achievements h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .achievement-item {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-item.unlocked {
+            border-color: #4ecdc4;
+            background: #f0fdfc;
+        }
+
+        .achievement-item.locked {
+            opacity: 0.5;
+        }
+
+        .obstacle {
+            background: #6c757d !important;
+            border-color: #5a6268 !important;
+        }
+
+        .collectible {
+            background: #ffc107 !important;
+            border-color: #e0a800 !important;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-top: 30px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            color: white;
+        }
+
+        .footer-content p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-content a {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .footer-content a:hover {
+            color: #45b7d1;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .stages-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-board {
+                grid-template-columns: repeat(5, 50px);
+            }
+            
+            .grid-cell {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 Belajar Coding untuk Anak SD</h1>
+            <p>Mengenalkan logika berpikir komputasional melalui permainan yang menyenangkan!</p>
+        </div>
+
+        <div class="stages-container">
+            <div class="stage-card" onclick="selectStage(1)">
+                <div class="stage-header">
+                    <div class="stage-emoji">🏁</div>
+                    <div>
+                        <h3 class="stage-title">Tahap 1: Pengenalan Dasar</h3>
+                        <p class="stage-subtitle">Kelas 1-2 SD</p>
+                    </div>
+                </div>
+                <p class="stage-description">Mengenal konsep berpikir logis dan urutan langkah (algoritma) melalui permainan sederhana.</p>
+                <ul class="activities-list">
+                    <li>🤖 Bermain perintah berurutan</li>
+                    <li>🧩 Puzzle arah dan logika</li>
+                    <li>🎨 Menggambar pola berurutan</li>
+                    <li>🔄 Konsep "jika-maka"</li>
+                </ul>
+                <button class="start-button">Mulai Belajar</button>
+            </div>
+
+            <div class="stage-card" onclick="selectStage(2)">
+                <div class="stage-header">
+                    <div class="stage-emoji">💡</div>
+                    <div>
+                        <h3 class="stage-title">Tahap 2: Visual Coding</h3>
+                        <p class="stage-subtitle">Kelas 3-4 SD</p>
+                    </div>
+                </div>
+                <p class="stage-description">Mengenal coding dengan blok visual dan membuat animasi sederhana.</p>
+                <ul class="activities-list">
+                    <li>🎬 Membuat animasi karakter</li>
+                    <li>🎮 Game sederhana</li>
+                    <li>🔄 Mengenal loop dan event</li>
+                    <li>📚 Cerita interaktif</li>
+                </ul>
+                <button class="start-button">Mulai Belajar</button>
+            </div>
+
+            <div class="stage-card" onclick="selectStage(3)">
+                <div class="stage-header">
+                    <div class="stage-emoji">🚀</div>
+                    <div>
+                        <h3 class="stage-title">Tahap 3: Kreativitas & Proyek</h3>
+                        <p class="stage-subtitle">Kelas 5-6 SD</p>
+                    </div>
+                </div>
+                <p class="stage-description">Menerapkan logika coding ke proyek nyata dan membuat aplikasi sederhana.</p>
+                <ul class="activities-list">
+                    <li>🎯 Game petualangan</li>
+                    <li>🤖 Coding robot mini</li>
+                    <li>📱 Aplikasi edukatif</li>
+                    <li>🐛 Debugging dan testing</li>
+                </ul>
+                <button class="start-button">Mulai Belajar</button>
+            </div>
+
+            <div class="stage-card" onclick="selectStage(4)">
+                <div class="stage-header">
+                    <div class="stage-emoji">🧠</div>
+                    <div>
+                        <h3 class="stage-title">Tahap 4: Tantangan Lanjut</h3>
+                        <p class="stage-subtitle">Persiapan SMP</p>
+                    </div>
+                </div>
+                <p class="stage-description">Menyiapkan anak untuk jenjang yang lebih tinggi dengan proyek tim dan kompetisi.</p>
+                <ul class="activities-list">
+                    <li>👥 Proyek tim</li>
+                    <li>🐍 Python dasar visual</li>
+                    <li>🏆 Kompetisi coding</li>
+                    <li>🌟 Portfolio proyek</li>
+                </ul>
+                <button class="start-button">Mulai Belajar</button>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-header">
+                <h2>🎮 Tantangan Robot: 100 Level</h2>
+                <p>Selesaikan semua level dari yang mudah hingga yang sangat sulit!</p>
+            </div>
+
+            <div class="level-info">
+                <div class="level-display">
+                    <span class="level-text">Level <span id="currentLevel">1</span>/100</span>
+                    <span class="difficulty-badge" id="difficultyBadge">🟢 Mudah</span>
+                </div>
+                <div class="level-description" id="levelDescription">
+                    Level 1: Bergerak 4 langkah ke kanan untuk mencapai target
+                </div>
+                <div class="stars-display" id="starsDisplay">
+                    ⭐⭐⭐
+                </div>
+            </div>
+
+            <div class="game-board" id="gameBoard"></div>
+
+            <div class="controls">
+                <button class="control-btn" onclick="moveRobot('up')">⬆️ Atas</button>
+                <button class="control-btn" onclick="moveRobot('down')">⬇️ Bawah</button>
+                <button class="control-btn" onclick="moveRobot('left')">⬅️ Kiri</button>
+                <button class="control-btn" onclick="moveRobot('right')">➡️ Kanan</button>
+                <button class="reset-btn" onclick="resetLevel()">🔄 Reset Level</button>
+            </div>
+
+            <div class="level-controls">
+                <button class="nav-btn" onclick="previousLevel()" id="prevBtn" disabled>⬅️ Level Sebelumnya</button>
+                <button class="nav-btn" onclick="nextLevel()" id="nextBtn">Level Selanjutnya ➡️</button>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-label">Langkah: <span id="moveCount">0</span>/<span id="maxMoves">8</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div id="gameMessage" class="message info">
+                Gunakan tombol arah untuk menggerakkan robot ke target! 🎯
+            </div>
+
+            <div class="achievements" id="achievements">
+                <h3>🏆 Pencapaian</h3>
+                <div class="achievement-grid" id="achievementGrid"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p>© 2024 Belajar Coding untuk Anak SD</p>
+                <p>Dikembangkan oleh <a href="https://www.kangruli.web.id" target="_blank" rel="noopener noreferrer">www.kangruli.web.id</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let currentLevel = 1;
+        let robotPosition = { x: 0, y: 2 };
+        let targetPosition = { x: 4, y: 2 };
+        let moves = 0;
+        let maxMoves = 8;
+        let obstacles = [];
+        let collectibles = [];
+        let collectedItems = 0;
+        let levelProgress = {};
+        let achievements = [];
+        
+        // Safe localStorage access
+        try {
+            levelProgress = JSON.parse(localStorage.getItem('robotLevelProgress') || '{}');
+            achievements = JSON.parse(localStorage.getItem('robotAchievements') || '[]');
+        } catch (e) {
+            console.log('LocalStorage not available, using temporary storage');
+            levelProgress = {};
+            achievements = [];
+        }
+
+        // Level configurations (100 levels)
+        const levels = [
+            // Levels 1-10: Basic movement
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 4, obstacles: [], collectibles: [], description: "Bergerak 4 langkah ke kanan" },
+            { robot: {x:2,y:0}, target: {x:2,y:4}, maxMoves: 4, obstacles: [], collectibles: [], description: "Bergerak 4 langkah ke bawah" },
+            { robot: {x:4,y:2}, target: {x:0,y:2}, maxMoves: 4, obstacles: [], collectibles: [], description: "Bergerak 4 langkah ke kiri" },
+            { robot: {x:2,y:4}, target: {x:2,y:0}, maxMoves: 4, obstacles: [], collectibles: [], description: "Bergerak 4 langkah ke atas" },
+            { robot: {x:0,y:0}, target: {x:4,y:4}, maxMoves: 8, obstacles: [], collectibles: [], description: "Diagonal: kanan-bawah" },
+            { robot: {x:4,y:0}, target: {x:0,y:4}, maxMoves: 8, obstacles: [], collectibles: [], description: "Diagonal: kiri-bawah" },
+            { robot: {x:0,y:4}, target: {x:4,y:0}, maxMoves: 8, obstacles: [], collectibles: [], description: "Diagonal: kanan-atas" },
+            { robot: {x:4,y:4}, target: {x:0,y:0}, maxMoves: 8, obstacles: [], collectibles: [], description: "Diagonal: kiri-atas" },
+            { robot: {x:1,y:1}, target: {x:3,y:3}, maxMoves: 6, obstacles: [], collectibles: [], description: "Gerakan L-shape" },
+            { robot: {x:2,y:2}, target: {x:0,y:4}, maxMoves: 6, obstacles: [], collectibles: [], description: "Gerakan zigzag" },
+            
+            // Levels 11-25: Introduction to obstacles
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 6, obstacles: [{x:2,y:2}], collectibles: [], description: "Hindari rintangan pertama" },
+            { robot: {x:0,y:0}, target: {x:4,y:4}, maxMoves: 10, obstacles: [{x:2,y:2}], collectibles: [], description: "Diagonal dengan rintangan" },
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 8, obstacles: [{x:1,y:2},{x:3,y:2}], collectibles: [], description: "Dua rintangan berjajar" },
+            { robot: {x:2,y:0}, target: {x:2,y:4}, maxMoves: 8, obstacles: [{x:2,y:2}], collectibles: [], description: "Rintangan di tengah jalur" },
+            { robot: {x:0,y:0}, target: {x:4,y:0}, maxMoves: 8, obstacles: [{x:2,y:0}], collectibles: [], description: "Rintangan menghalangi jalur lurus" },
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 10, obstacles: [{x:1,y:1},{x:1,y:3},{x:3,y:1},{x:3,y:3}], collectibles: [], description: "Labirin sederhana" },
+            { robot: {x:0,y:0}, target: {x:4,y:4}, maxMoves: 12, obstacles: [{x:1,y:1},{x:2,y:2},{x:3,y:3}], collectibles: [], description: "Rintangan diagonal" },
+            { robot: {x:2,y:2}, target: {x:0,y:0}, maxMoves: 8, obstacles: [{x:1,y:1},{x:1,y:2},{x:2,y:1}], collectibles: [], description: "Keluar dari sudut" },
+            { robot: {x:4,y:2}, target: {x:0,y:2}, maxMoves: 10, obstacles: [{x:3,y:2},{x:1,y:2}], collectibles: [], description: "Jalur berliku" },
+            { robot: {x:2,y:4}, target: {x:2,y:0}, maxMoves: 10, obstacles: [{x:2,y:3},{x:2,y:1}], collectibles: [], description: "Jalur vertikal berliku" },
+            { robot: {x:0,y:1}, target: {x:4,y:3}, maxMoves: 12, obstacles: [{x:1,y:1},{x:2,y:2},{x:3,y:2}], collectibles: [], description: "Rute alternatif" },
+            { robot: {x:1,y:0}, target: {x:3,y:4}, maxMoves: 14, obstacles: [{x:1,y:2},{x:2,y:1},{x:3,y:2}], collectibles: [], description: "Labirin kecil" },
+            { robot: {x:0,y:4}, target: {x:4,y:0}, maxMoves: 12, obstacles: [{x:1,y:3},{x:2,y:2},{x:3,y:1}], collectibles: [], description: "Diagonal terbalik" },
+            { robot: {x:2,y:0}, target: {x:2,y:4}, maxMoves: 12, obstacles: [{x:1,y:2},{x:3,y:2}], collectibles: [], description: "Jalan memutar" },
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 14, obstacles: [{x:1,y:1},{x:1,y:2},{x:1,y:3},{x:3,y:1},{x:3,y:3}], collectibles: [], description: "Terowongan sempit" },
+            
+            // Levels 26-50: Collectibles introduced
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 6, obstacles: [], collectibles: [{x:2,y:2}], description: "Kumpulkan koin emas!" },
+            { robot: {x:0,y:0}, target: {x:4,y:4}, maxMoves: 10, obstacles: [], collectibles: [{x:2,y:2}], description: "Koin di tengah diagonal" },
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 8, obstacles: [{x:1,y:2}], collectibles: [{x:3,y:2}], description: "Hindari rintangan, ambil koin" },
+            { robot: {x:2,y:0}, target: {x:2,y:4}, maxMoves: 8, obstacles: [], collectibles: [{x:2,y:1},{x:2,y:3}], description: "Dua koin di jalur" },
+            { robot: {x:0,y:0}, target: {x:4,y:0}, maxMoves: 10, obstacles: [{x:2,y:0}], collectibles: [{x:1,y:1},{x:3,y:1}], description: "Koin di samping rintangan" },
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 12, obstacles: [{x:2,y:2}], collectibles: [{x:1,y:1},{x:1,y:3},{x:3,y:1},{x:3,y:3}], description: "Empat koin sudut" },
+            { robot: {x:1,y:1}, target: {x:3,y:3}, maxMoves: 10, obstacles: [], collectibles: [{x:2,y:1},{x:1,y:2},{x:3,y:2},{x:2,y:3}], description: "Koin membentuk plus" },
+            { robot: {x:0,y:0}, target: {x:4,y:4}, maxMoves: 14, obstacles: [{x:1,y:1},{x:3,y:3}], collectibles: [{x:0,y:2},{x:2,y:0},{x:2,y:4},{x:4,y:2}], description: "Koin di tepi" },
+            { robot: {x:2,y:2}, target: {x:0,y:0}, maxMoves: 12, obstacles: [{x:1,y:1}], collectibles: [{x:0,y:1},{x:1,y:0},{x:2,y:1},{x:1,y:2}], description: "Koin mengelilingi target" },
+            { robot: {x:4,y:4}, target: {x:0,y:0}, maxMoves: 16, obstacles: [{x:2,y:2}], collectibles: [{x:4,y:2},{x:2,y:4},{x:0,y:2},{x:2,y:0}], description: "Koin di tengah sisi" },
+            
+            // Levels 31-50: More complex combinations
+            { robot: {x:0,y:0}, target: {x:4,y:4}, maxMoves: 16, obstacles: [{x:1,y:1},{x:2,y:2},{x:3,y:3}], collectibles: [{x:0,y:2},{x:2,y:0},{x:2,y:4},{x:4,y:2}], description: "Diagonal dengan koin" },
+            { robot: {x:2,y:2}, target: {x:0,y:0}, maxMoves: 14, obstacles: [{x:1,y:1},{x:1,y:2},{x:2,y:1}], collectibles: [{x:0,y:1},{x:1,y:0},{x:3,y:3}], description: "Keluar dari pusat dengan koin" },
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 18, obstacles: [{x:1,y:1},{x:1,y:3},{x:3,y:1},{x:3,y:3}], collectibles: [{x:2,y:0},{x:2,y:4}], description: "Koridor dengan koin" },
+            { robot: {x:4,y:0}, target: {x:0,y:4}, maxMoves: 16, obstacles: [{x:2,y:1},{x:2,y:3}], collectibles: [{x:1,y:2},{x:3,y:2}], description: "Jalur berliku dengan koin" },
+            { robot: {x:1,y:1}, target: {x:3,y:3}, maxMoves: 12, obstacles: [{x:2,y:1},{x:1,y:2}], collectibles: [{x:0,y:0},{x:4,y:4},{x:2,y:2}], description: "Diagonal pendek dengan bonus" },
+            { robot: {x:0,y:4}, target: {x:4,y:0}, maxMoves: 18, obstacles: [{x:1,y:3},{x:2,y:2},{x:3,y:1}], collectibles: [{x:0,y:2},{x:2,y:4},{x:4,y:2}], description: "Diagonal terbalik dengan koin" },
+            { robot: {x:2,y:0}, target: {x:2,y:4}, maxMoves: 16, obstacles: [{x:1,y:2},{x:3,y:2}], collectibles: [{x:2,y:1},{x:2,y:3},{x:0,y:2},{x:4,y:2}], description: "Jalur vertikal dengan banyak koin" },
+            { robot: {x:0,y:1}, target: {x:4,y:3}, maxMoves: 18, obstacles: [{x:1,y:1},{x:2,y:2},{x:3,y:2}], collectibles: [{x:0,y:3},{x:2,y:0},{x:4,y:1}], description: "Rute memutar dengan koin" },
+            { robot: {x:1,y:0}, target: {x:3,y:4}, maxMoves: 20, obstacles: [{x:1,y:2},{x:2,y:1},{x:3,y:2}], collectibles: [{x:0,y:0},{x:4,y:0},{x:0,y:4},{x:4,y:4}], description: "Koin di sudut-sudut" },
+            { robot: {x:4,y:2}, target: {x:0,y:2}, maxMoves: 16, obstacles: [{x:3,y:2},{x:1,y:2}], collectibles: [{x:2,y:1},{x:2,y:3},{x:4,y:1},{x:0,y:3}], description: "Jalur horizontal dengan detour" },
+            
+            // Levels 41-50: Advanced challenges
+            { robot: {x:0,y:0}, target: {x:4,y:4}, maxMoves: 22, obstacles: [{x:1,y:0},{x:1,y:1},{x:1,y:2},{x:3,y:2},{x:3,y:3},{x:3,y:4}], collectibles: [{x:0,y:2},{x:2,y:0},{x:2,y:4},{x:4,y:2}], description: "Labirin zigzag" },
+            { robot: {x:2,y:2}, target: {x:0,y:0}, maxMoves: 20, obstacles: [{x:1,y:1},{x:1,y:2},{x:2,y:1},{x:1,y:3},{x:3,y:1}], collectibles: [{x:0,y:1},{x:1,y:0},{x:3,y:3},{x:4,y:2}], description: "Keluar dari pusat" },
+            { robot: {x:0,y:2}, target: {x:4,y:2}, maxMoves: 24, obstacles: [{x:1,y:1},{x:1,y:3},{x:2,y:0},{x:2,y:4},{x:3,y:1},{x:3,y:3}], collectibles: [{x:0,y:0},{x:0,y:4},{x:4,y:0},{x:4,y:4}], description: "Labirin simetris" },
+            { robot: {x:4,y:4}, target: {x:0,y:0}, maxMoves: 20, obstacles: [{x:3,y:3},{x:2,y:2},{x:1,y:1}], collectibles: [{x:4,y:2},{x:2,y:4},{x:0,y:2},{x:2,y:0}], description: "Diagonal mundur dengan koin" },
+            { robot: {x:1,y:1}, target: {x:3,y:3}, maxMoves: 18, obstacles: [{x:2,y:1},{x:1,y:2},{x:3,y:2},{x:2,y:3}], collectibles: [{x:0,y:0},{x:4,y:0},{x:0,y:4},{x:4,y:4}], description: "Terkurung dengan koin sudut" },
+            { robot: {x:0,y:3}, target: {x:4,y:1}, maxMoves: 20, obstacles: [{x:1,y:2},{x:2,y:2},{x:3,y:2}], collectibles: [{x:0,y:1},{x:2,y:0},{x:4,y:3},{x:2,y:4}], description: "Melompati penghalang" },
+            { robot: {x:3,y:0}, target: {x:1,y:4}, maxMoves: 18, obstacles: [{x:2,y:1},{x:2,y:2},{x:2,y:3}], collectibles: [{x:0,y:0},{x:4,y:0},{x:0,y:4},{x:4,y:4}], description: "Tembok vertikal" },
+            { robot: {x:0,y:1}, target: {x:4,y:3}, maxMoves: 22, obstacles: [{x:1,y:1},{x:2,y:1},{x:3,y:1},{x:1,y:3},{x:2,y:3},{x:3,y:3}], collectibles: [{x:0,y:0},{x:2,y:2},{x:4,y:4}], description: "Koridor sempit" },
+            { robot: {x:2,y:4}, target: {x:2,y:0}, maxMoves: 20, obstacles: [{x:1,y:3},{x:3,y:3},{x:1,y:1},{x:3,y:1}], collectibles: [{x:0,y:2},{x:4,y:2},{x:2,y:2}], description: "Jalur berliku vertikal" },
+            { robot: {x:4,y:1}, target: {x:0,y:3}, maxMoves: 24, obstacles: [{x:3,y:1},{x:2,y:2},{x:1,y:3},{x:3,y:3},{x:1,y:1}], collectibles: [{x:4,y:0},{x:0,y:0},{x:4,y:4},{x:0,y:4}], description: "Labirin kompleks dengan koin sudut" }
+        ];
+
+        // Generate remaining levels programmatically
+        function generateRemainingLevels() {
+            // Only generate if we don't have 100 levels yet
+            while (levels.length < 100) {
+                const i = levels.length;
+                const difficulty = Math.floor(i / 10);
+                const numObstacles = Math.min(Math.max(0, difficulty), 6); // Limit obstacles
+                const numCollectibles = Math.min(Math.max(0, Math.floor(difficulty / 2)), 3); // Limit collectibles
+                const maxMovesBase = Math.max(6, 8 + difficulty * 2);
+                
+                let obstacles = [];
+                let collectibles = [];
+                let attempts = 0;
+                const maxAttempts = 50;
+                
+                // Generate obstacles with safety check
+                while (obstacles.length < numObstacles && attempts < maxAttempts) {
+                    const pos = { x: Math.floor(Math.random() * 5), y: Math.floor(Math.random() * 5) };
+                    if (!obstacles.some(o => o.x === pos.x && o.y === pos.y)) {
+                        obstacles.push(pos);
+                    }
+                    attempts++;
+                }
+                
+                // Generate collectibles with safety check
+                attempts = 0;
+                while (collectibles.length < numCollectibles && attempts < maxAttempts) {
+                    const pos = { x: Math.floor(Math.random() * 5), y: Math.floor(Math.random() * 5) };
+                    if (!obstacles.some(o => o.x === pos.x && o.y === pos.y) && 
+                        !collectibles.some(c => c.x === pos.x && c.y === pos.y)) {
+                        collectibles.push(pos);
+                    }
+                    attempts++;
+                }
+                
+                // Generate robot and target positions with safety check
+                let robot = { x: 0, y: 0 };
+                let target = { x: 4, y: 4 };
+                attempts = 0;
+                
+                while (attempts < maxAttempts) {
+                    robot = { x: Math.floor(Math.random() * 5), y: Math.floor(Math.random() * 5) };
+                    target = { x: Math.floor(Math.random() * 5), y: Math.floor(Math.random() * 5) };
+                    
+                    const robotBlocked = obstacles.some(o => o.x === robot.x && o.y === robot.y);
+                    const targetBlocked = obstacles.some(o => o.x === target.x && o.y === target.y);
+                    const samePosition = robot.x === target.x && robot.y === target.y;
+                    
+                    if (!robotBlocked && !targetBlocked && !samePosition) {
+                        break;
+                    }
+                    attempts++;
+                }
+                
+                levels.push({
+                    robot: robot,
+                    target: target,
+                    maxMoves: maxMovesBase,
+                    obstacles: obstacles,
+                    collectibles: collectibles,
+                    description: `Level ${i + 1}: ${getDifficultyName(difficulty)} - ${obstacles.length} rintangan, ${collectibles.length} koin`
+                });
+            }
+        }
+
+        function getDifficultyName(difficulty) {
+            const names = ["Mudah", "Sedang", "Sulit", "Sangat Sulit", "Ekstrem", "Master", "Legendaris", "Mustahil", "Dewa", "Ultimate"];
+            return names[Math.min(difficulty, names.length - 1)];
+        }
+
+        function getDifficultyBadge(level) {
+            if (level <= 10) return "🟢 Mudah";
+            if (level <= 25) return "🟡 Sedang";
+            if (level <= 50) return "🟠 Sulit";
+            if (level <= 75) return "🔴 Sangat Sulit";
+            return "🟣 Ekstrem";
+        }
+
+        function initializeGame() {
+            generateRemainingLevels();
+            loadLevel(currentLevel);
+            updateAchievements();
+        }
+
+        function loadLevel(level) {
+            if (level < 1 || level > 100) return;
+            
+            currentLevel = level;
+            const levelData = levels[level - 1];
+            
+            robotPosition = { ...levelData.robot };
+            targetPosition = { ...levelData.target };
+            obstacles = [...levelData.obstacles];
+            collectibles = [...levelData.collectibles];
+            maxMoves = levelData.maxMoves;
+            moves = 0;
+            collectedItems = 0;
+            
+            updateLevelDisplay();
+            createBoard();
+            updateBoard();
+            updateProgress();
+            updateMessage(`Level ${level}: ${levelData.description}`, "info");
+            updateNavigationButtons();
+        }
+
+        function updateLevelDisplay() {
+            document.getElementById('currentLevel').textContent = currentLevel;
+            document.getElementById('difficultyBadge').textContent = getDifficultyBadge(currentLevel);
+            document.getElementById('levelDescription').textContent = levels[currentLevel - 1].description;
+            
+            // Update stars based on previous performance
+            const stars = levelProgress[currentLevel] || 0;
+            let starsDisplay = '';
+            for (let i = 0; i < 3; i++) {
+                starsDisplay += i < stars ? '⭐' : '☆';
+            }
+            document.getElementById('starsDisplay').textContent = starsDisplay;
+        }
+
+        function createBoard() {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            
+            for (let i = 0; i < 25; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.id = `cell-${i}`;
+                gameBoard.appendChild(cell);
+            }
+        }
+
+        function updateBoard() {
+            // Clear all cells
+            for (let i = 0; i < 25; i++) {
+                const cell = document.getElementById(`cell-${i}`);
+                cell.className = 'grid-cell';
+                cell.textContent = '';
+            }
+            
+            // Place obstacles
+            obstacles.forEach(obs => {
+                const index = obs.y * 5 + obs.x;
+                const cell = document.getElementById(`cell-${index}`);
+                cell.className = 'grid-cell obstacle';
+                cell.textContent = '🧱';
+            });
+            
+            // Place collectibles
+            collectibles.forEach(col => {
+                const index = col.y * 5 + col.x;
+                const cell = document.getElementById(`cell-${index}`);
+                cell.className = 'grid-cell collectible';
+                cell.textContent = '🪙';
+            });
+            
+            // Place robot
+            const robotIndex = robotPosition.y * 5 + robotPosition.x;
+            const robotCell = document.getElementById(`cell-${robotIndex}`);
+            robotCell.className = 'grid-cell robot';
+            robotCell.textContent = '🤖';
+            
+            // Place target
+            const targetIndex = targetPosition.y * 5 + targetPosition.x;
+            const targetCell = document.getElementById(`cell-${targetIndex}`);
+            if (robotIndex !== targetIndex) {
+                targetCell.className = 'grid-cell target';
+                targetCell.textContent = '🎯';
+            }
+        }
+
+        function moveRobot(direction) {
+            if (moves >= maxMoves) {
+                updateMessage("Langkah habis! Reset level untuk mencoba lagi.", "info");
+                return;
+            }
+
+            let newX = robotPosition.x;
+            let newY = robotPosition.y;
+            
+            switch(direction) {
+                case 'up':
+                    newY = Math.max(0, robotPosition.y - 1);
+                    break;
+                case 'down':
+                    newY = Math.min(4, robotPosition.y + 1);
+                    break;
+                case 'left':
+                    newX = Math.max(0, robotPosition.x - 1);
+                    break;
+                case 'right':
+                    newX = Math.min(4, robotPosition.x + 1);
+                    break;
+            }
+            
+            // Check for obstacles
+            if (obstacles.some(obs => obs.x === newX && obs.y === newY)) {
+                updateMessage("Tidak bisa bergerak! Ada rintangan di sana! 🧱", "info");
+                return;
+            }
+            
+            robotPosition.x = newX;
+            robotPosition.y = newY;
+            moves++;
+            
+            // Check for collectibles
+            const collectibleIndex = collectibles.findIndex(col => col.x === newX && col.y === newY);
+            if (collectibleIndex !== -1) {
+                collectibles.splice(collectibleIndex, 1);
+                collectedItems++;
+                updateMessage(`Koin dikumpulkan! 🪙 (${collectedItems} koin)`, "success");
+            }
+            
+            updateBoard();
+            updateProgress();
+            
+            // Check if robot reached target
+            if (robotPosition.x === targetPosition.x && robotPosition.y === targetPosition.y) {
+                const allCollected = collectibles.length === 0;
+                let stars = 1;
+                
+                if (moves <= maxMoves * 0.6) stars = 3;
+                else if (moves <= maxMoves * 0.8) stars = 2;
+                
+                if (!allCollected && levels[currentLevel - 1].collectibles.length > 0) {
+                    stars = Math.max(1, stars - 1);
+                }
+                
+                // Save progress
+                levelProgress[currentLevel] = Math.max(levelProgress[currentLevel] || 0, stars);
+                try {
+                    localStorage.setItem('robotLevelProgress', JSON.stringify(levelProgress));
+                } catch (e) {
+                    console.log('Could not save progress to localStorage');
+                }
+                
+                let message = `🎉 Level ${currentLevel} selesai! `;
+                message += `${stars} bintang! `;
+                if (allCollected) message += "Semua koin dikumpulkan! ";
+                
+                updateMessage(message, "success");
+                checkAchievements();
+                
+                setTimeout(() => {
+                    if (currentLevel < 100) {
+                        nextLevel();
+                    } else {
+                        updateMessage("🏆 Selamat! Kamu telah menyelesaikan semua 100 level!", "success");
+                    }
+                }, 2000);
+            } else if (moves >= maxMoves) {
+                updateMessage("Langkah habis! Reset level untuk mencoba lagi.", "info");
+            } else {
+                updateMessage(`Langkah ${moves}/${maxMoves} - Terus bergerak menuju target! 🎯`, "info");
+            }
+        }
+
+        function updateProgress() {
+            const progress = (moves / maxMoves) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('moveCount').textContent = moves;
+            document.getElementById('maxMoves').textContent = maxMoves;
+        }
+
+        function updateMessage(text, type) {
+            const messageEl = document.getElementById('gameMessage');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type}`;
+        }
+
+        function resetLevel() {
+            loadLevel(currentLevel);
+        }
+
+        function nextLevel() {
+            if (currentLevel < 100) {
+                loadLevel(currentLevel + 1);
+            }
+        }
+
+        function previousLevel() {
+            if (currentLevel > 1) {
+                loadLevel(currentLevel - 1);
+            }
+        }
+
+        function updateNavigationButtons() {
+            document.getElementById('prevBtn').disabled = currentLevel <= 1;
+            document.getElementById('nextBtn').disabled = currentLevel >= 100;
+        }
+
+        function checkAchievements() {
+            const newAchievements = [];
+            
+            // Check various achievements
+            const completedLevels = Object.keys(levelProgress).length;
+            const totalStars = Object.values(levelProgress).reduce((sum, stars) => sum + stars, 0);
+            const perfectLevels = Object.values(levelProgress).filter(stars => stars === 3).length;
+            
+            if (completedLevels >= 10 && !achievements.includes('first_10')) {
+                newAchievements.push({ id: 'first_10', name: '10 Level Pertama', desc: 'Selesaikan 10 level pertama' });
+            }
+            if (completedLevels >= 25 && !achievements.includes('quarter')) {
+                newAchievements.push({ id: 'quarter', name: 'Seperempat Jalan', desc: 'Selesaikan 25 level' });
+            }
+            if (completedLevels >= 50 && !achievements.includes('halfway')) {
+                newAchievements.push({ id: 'halfway', name: 'Setengah Perjalanan', desc: 'Selesaikan 50 level' });
+            }
+            if (completedLevels >= 100 && !achievements.includes('master')) {
+                newAchievements.push({ id: 'master', name: 'Master Robot', desc: 'Selesaikan semua 100 level!' });
+            }
+            if (totalStars >= 150 && !achievements.includes('star_collector')) {
+                newAchievements.push({ id: 'star_collector', name: 'Kolektor Bintang', desc: 'Kumpulkan 150 bintang' });
+            }
+            if (perfectLevels >= 20 && !achievements.includes('perfectionist')) {
+                newAchievements.push({ id: 'perfectionist', name: 'Perfeksionis', desc: 'Dapatkan 3 bintang di 20 level' });
+            }
+            
+            newAchievements.forEach(achievement => {
+                if (!achievements.includes(achievement.id)) {
+                    achievements.push(achievement.id);
+                    updateMessage(`🏆 Pencapaian baru: ${achievement.name}!`, "success");
+                }
+            });
+            
+            if (newAchievements.length > 0) {
+                try {
+                    localStorage.setItem('robotAchievements', JSON.stringify(achievements));
+                } catch (e) {
+                    console.log('Could not save achievements to localStorage');
+                }
+                updateAchievements();
+            }
+        }
+
+        function updateAchievements() {
+            const achievementsList = [
+                { id: 'first_10', name: '10 Level Pertama', desc: 'Selesaikan 10 level pertama' },
+                { id: 'quarter', name: 'Seperempat Jalan', desc: 'Selesaikan 25 level' },
+                { id: 'halfway', name: 'Setengah Perjalanan', desc: 'Selesaikan 50 level' },
+                { id: 'master', name: 'Master Robot', desc: 'Selesaikan semua 100 level!' },
+                { id: 'star_collector', name: 'Kolektor Bintang', desc: 'Kumpulkan 150 bintang' },
+                { id: 'perfectionist', name: 'Perfeksionis', desc: 'Dapatkan 3 bintang di 20 level' }
+            ];
+            
+            const grid = document.getElementById('achievementGrid');
+            grid.innerHTML = '';
+            
+            achievementsList.forEach(achievement => {
+                const div = document.createElement('div');
+                div.className = `achievement-item ${achievements.includes(achievement.id) ? 'unlocked' : 'locked'}`;
+                div.innerHTML = `
+                    <div>${achievements.includes(achievement.id) ? '🏆' : '🔒'}</div>
+                    <div><strong>${achievement.name}</strong></div>
+                    <div style="font-size: 0.8rem;">${achievement.desc}</div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function selectStage(stage) {
+            const stages = {
+                1: "Tahap 1: Pengenalan Dasar",
+                2: "Tahap 2: Visual Coding", 
+                3: "Tahap 3: Kreativitas & Proyek",
+                4: "Tahap 4: Tantangan Lanjut"
+            };
+            
+            updateMessage(`🎯 Kamu memilih ${stages[stage]}! Coba tantangan 100 level di bawah!`, "success");
+        }
+
+        // Initialize the game when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGame();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ad4fb54374402f',t:'MTc1OTgzOTE5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
